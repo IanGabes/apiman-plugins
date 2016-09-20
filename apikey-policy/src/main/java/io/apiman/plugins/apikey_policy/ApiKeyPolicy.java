@@ -49,7 +49,10 @@ public class ApiKeyPolicy extends AbstractMappedPolicy<ApiKeyConfigBean> {
             IPolicyChain<ApiRequest> chain) {
         if (request.getApiKey() != null) {
             String header = config.getRequestHeader();
-            request.getHeaders().put(header, request.getApiKey());
+            request.getHeaders().put("X-API-KEY", request.getApiKey());
+			request.getHeaders().put("X-API-ID", request.getApiId());
+			request.getHeaders().put("X-API-ORG-ID", request.getApiOrgId());
+			request.getHeaders().put("X-API-CLIENT-ID", request.getContract().getClient().getClientId());
         }
         super.doApply(request, context, config, chain);
     }
