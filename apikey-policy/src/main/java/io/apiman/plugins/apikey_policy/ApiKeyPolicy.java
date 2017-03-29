@@ -15,12 +15,10 @@
  */
 package io.apiman.plugins.apikey_policy;
 
-import java.net.URLEncoder;
 import io.apiman.gateway.engine.beans.ApiRequest;
 import io.apiman.gateway.engine.policies.AbstractMappedPolicy;
 import io.apiman.gateway.engine.policy.IPolicyChain;
 import io.apiman.gateway.engine.policy.IPolicyContext;
-import java.io.UnsupportedEncodingException;
 /**
  * A policy that simply adds a header to the inbound http request.
  *
@@ -53,7 +51,7 @@ public class ApiKeyPolicy extends AbstractMappedPolicy<ApiKeyConfigBean> {
             request.getHeaders().put("X-API-KEY", request.getApiKey());
 			request.getHeaders().put("X-API-ID", request.getApiId());
 			request.getHeaders().put("X-API-VERSION", request.getApi().getVersion());
-			request.getHeaders().put("X-API-ORG-ID", request.getApiOrgId());
+			request.getHeaders().put("X-API-ORG-ID", request.getContract().getClient().getOrganizationId());
 			request.getHeaders().put("X-API-CLIENT-ID", request.getContract().getClient().getClientId());
         }
         super.doApply(request, context, config, chain);
